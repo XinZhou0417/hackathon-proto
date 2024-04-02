@@ -1,11 +1,22 @@
 package team.gpt2p5.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 
 public class SysUser implements Serializable {
+    @JsonProperty("userId")
     private String userId;
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("email")
     private String email;
+
+    /**
+     * A default constructor without any attributes is required for JSON-Object conversion
+     */
+    public SysUser() {
+    }
 
     public SysUser(String userId, String name, String email) {
         this.userId = userId;
@@ -45,8 +56,8 @@ public class SysUser implements Serializable {
     public String toString() {
         return getClass().getSimpleName() +
                 "[" +
-                "userId=" + userId +
-                "name=" + name +
+                "userId=" + userId + "," +
+                "name=" + name + "," +
                 "email=" + email +
                 "]";
     }
