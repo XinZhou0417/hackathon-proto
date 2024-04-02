@@ -1,0 +1,27 @@
+  name: AWS Lambda CICD
+  on:
+    push:
+      branches: [main]
+  jobs:
+    build-and-deploy:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Code Checkout
+          uses: actions/checkout@v3
+        - name: Setup Java
+          uses: actions/setup-java@v3
+          with:
+            distribution: 'corretto'
+            java-version: '11'
+        - name: Build Project
+          run: mvn clean install
+        - name: Configure AWS Credentials
+          uses: aws-actions/configure-aws-credentials@v4
+          with:
+            # these credentials are set on Github, don't fill it here!!!
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: ap-southeast-4
+        - name: Update AWS Lambda Function
+          run: aws lambda update-function-code --function-name sysUser --zip-file fileb://target/hackathon-proto-1.0-SNAPSHOT.jar
