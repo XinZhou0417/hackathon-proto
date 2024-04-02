@@ -9,12 +9,16 @@ public class Response extends HashMap<String, Object> {
     private static String MSG = "msg";
     private static String DATA = "data";
     private static String ROWS = "rows";
+//    private static String HEADERS = "headers";
 
     private Response(int code, String msg, Object data, List<?> rows) {
+//        HashMap<String, String> headers = new HashMap<>();
+//        headers.put("Content-Type", "application/json");
         super.put(CODE, code);
         super.put(MSG, msg);
         super.put(DATA, data);
         super.put(ROWS, rows);
+//        super.put(HEADERS, headers);
     }
 
     public static Response success(String msg, Object data, List<?> rows) {
